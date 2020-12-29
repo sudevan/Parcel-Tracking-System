@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @consignment.user_id %>
+</p>
+
+<p>
+  <strong>Destination pin:</strong>
+  <%= @consignment.destination_pin %>
+</p>
+
+<p>
+  <strong>Source pin:</strong>
+  <%= @consignment.source_pin %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @consignment.status %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @consignment.weight %>
+</p>
+
+<p>
+  <strong>Tracking:</strong>
+  <%= @consignment.tracking_id %>
+</p>
+
+<p>
+  <strong>Source contact:</strong>
+  <%= @consignment.source_contact %>
+</p>
+
+<p>
+  <strong>Destination contact:</strong>
+  <%= @consignment.destination_contact %>
+</p>
+
+<%= link_to 'Edit', edit_consignment_path(@consignment) %> |
+<%= link_to 'Back', consignments_path %>
