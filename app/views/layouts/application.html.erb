@@ -17,17 +17,18 @@
    <% if ["public", "sessions", "registrations"].include?(controller.controller_name) %>
     <header>
     <%= render "layouts/nav/public" %>
+     <%= yield %>
     </header>
   <% else %>
     <%= render "layouts/nav/dashboard" %>
-  <% end %>
-  <div class="container-fluid">
-  <div class="row">
-    <%= render "layouts/nav/sidebar" %>
-    <div>
-    <%= yield %><!-- JavaScript Bundle with Popper -->
+    <div class="container-fluid">
+      <div class="row">
+        <%= render "layouts/nav/sidebar" %>
+        <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <%= yield %>
+        </main>
+      </div>
     </div>
-  </div>
-  </div>
+  <% end %>
   </body>
 </html>
