@@ -1,0 +1,47 @@
+<%= form_with(model: @consignment, local: true) do |form| %>
+  <% if @consignment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@consignment.errors.count, "error") %> prohibited this consignment from being saved:</h2>
+
+      <ul>
+        <% @consignment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :destination_pin %>
+    <%= form.number_field :destination_pin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :source_pin %>
+    <%= form.number_field :source_pin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weight %>
+    <%= form.text_field :weight %>
+  </div>
+
+  <div class="field">
+    <%= form.label :source_contact %>
+    <%= form.text_field :source_contact %>
+  </div>
+
+  <div class="field">
+    <%= form.label :destination_contact %>
+    <%= form.text_field :destination_contact %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

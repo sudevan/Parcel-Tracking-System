@@ -27,6 +27,7 @@ class ConsignmentsController < ApplicationController
     @consignment = Consignment.new(consignment_params)
     puts "This is a sample"
     puts @consignment.id
+    @consignment.status = 1
     respond_to do |format|
       if @consignment.save
         format.html { redirect_to @consignment, notice: 'Consignment was successfully created.' }
@@ -39,7 +40,9 @@ class ConsignmentsController < ApplicationController
       end
     end
   end
-
+  def approve
+    @consignment = Consignment.find(params[:id])
+  end
   # PATCH/PUT /consignments/1
   # PATCH/PUT /consignments/1.json
   def update

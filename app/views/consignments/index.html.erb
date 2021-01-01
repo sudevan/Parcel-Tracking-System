@@ -7,11 +7,11 @@
       <th>id</th>
       <th>Destination pin</th>
       <th>Source pin</th>
-      <th>Status</th>
       <th>Weight</th>
       <th>Tracking</th>
       <th>Source contact</th>
       <th>Destination contact</th>
+      <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,12 +22,17 @@
         <td><%= consignment.id %></td>
         <td><%= consignment.destination_pin %></td>
         <td><%= consignment.source_pin %></td>
-        <td><%= consignment.status %></td>
         <td><%= consignment.weight %></td>
         <td><%= consignment.tracking_id %></td>
         <td><%= consignment.source_contact %></td>
         <td><%= consignment.destination_contact %></td>
-        <td><%= link_to 'Show', consignment, class: "btn btn-primary btn-sm" %></td>
+        <% if consignment.status == 1 %>
+        <td>Pending </td>
+        <td><%= link_to 'Schedule', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+        <% else %>
+         <td>Transit </td>
+         <td><%= link_to 'Track', consignment, class: "btn btn-primary btn-sm" %></td>
+        <% end %>
         <td><%= link_to 'Edit', edit_consignment_path(consignment), class: "btn btn-secondary btn-sm"  %></td>
         <td><%= link_to 'Destroy', consignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
       </tr>
@@ -36,5 +41,4 @@
 </table>
 </div>
 <br>
-
 <%= link_to 'New Consignment', new_consignment_path, class: "btn btn-success" %>
