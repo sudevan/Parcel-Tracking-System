@@ -25,11 +25,14 @@ class ConsignmentsController < ApplicationController
   # POST /consignments.json
   def create
     @consignment = Consignment.new(consignment_params)
-
+    puts "This is a sample"
+    puts @consignment.id
     respond_to do |format|
       if @consignment.save
         format.html { redirect_to @consignment, notice: 'Consignment was successfully created.' }
         format.json { render :show, status: :created, location: @consignment }
+        puts "This is a sample"
+        puts @consignment.id
       else
         format.html { render :new }
         format.json { render json: @consignment.errors, status: :unprocessable_entity }
@@ -44,6 +47,7 @@ class ConsignmentsController < ApplicationController
       if @consignment.update(consignment_params)
         format.html { redirect_to @consignment, notice: 'Consignment was successfully updated.' }
         format.json { render :show, status: :ok, location: @consignment }
+       
       else
         format.html { render :edit }
         format.json { render json: @consignment.errors, status: :unprocessable_entity }
