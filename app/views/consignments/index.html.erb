@@ -26,12 +26,13 @@
         <td><%= consignment.tracking_id %></td>
         <td><%= consignment.source_contact %></td>
         <td><%= consignment.destination_contact %></td>
-        <% if consignment.status == 1 %>
-        <td>Pending </td>
-        <td><%= link_to 'Schedule', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
-        <% else %>
-         <td>Transit </td>
-         <td><%= link_to 'Track', consignment, class: "btn btn-primary btn-sm" %></td>
+        <% case consignment.status 
+         when  1 %>   
+        <td>Schedule Pending </td>
+         <td><%= link_to 'Schedule Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+         <% when 2%>
+          <td>Waiting for pickup </td>
+         <td><%= link_to 'Confirm Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
         <% end %>
         <td><%= link_to 'Edit', edit_consignment_path(consignment), class: "btn btn-secondary btn-sm"  %></td>
         <td><%= link_to 'Destroy', consignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>

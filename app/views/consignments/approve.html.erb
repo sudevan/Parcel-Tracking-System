@@ -13,35 +13,10 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :destination_pin %>
-    <%= form.number_field :destination_pin %>
-  </div>
-
-  <div class="field">
-    <%= form.label :source_pin %>
-    <%= form.number_field :source_pin %>
-  </div>
-
-  <div class="field">
-    <%= form.label :weight %>
-    <%= form.text_field :weight %>
-  </div>
-
-  <div class="field">
-    <%= form.label :source_contact %>
-    <%= form.text_field :source_contact %>
-  </div>
-
-  <div class="field">
-    <%= form.label :destination_contact %>
-    <%= form.text_field :destination_contact %>
+    <%= form.number_field :status, :value => 2%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Schedule" %>
   </div>
 <% end %>
