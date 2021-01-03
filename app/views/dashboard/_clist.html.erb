@@ -1,0 +1,47 @@
+<p id="notice" > <%= notice  %></p>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Destination pin</th>
+      <th>Source pin</th>
+      <th>Weight</th>
+      <th>Tracking</th>
+      <th>Source contact</th>
+      <th>Destination contact</th>
+      <th>Status</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @consignments.each do |consignment| %>
+      <tr>
+        <td><%= consignment.id %></td>
+        <td><%= consignment.destination_pin %></td>
+        <td><%= consignment.source_pin %></td>
+        <td><%= consignment.weight %></td>
+        <td><%= consignment.tracking_id %></td>
+        <td><%= consignment.source_contact %></td>
+        <td><%= consignment.destination_contact %></td>
+        <td>
+        <% case consignment.status 
+         when  1 %>   
+            Schedule Pending
+         <%= link_to 'Schedule Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %>
+         <% when 2%>
+          Waiting for pickup
+         <%= link_to 'Confirm Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %>
+         <% when 3%>
+         In Transit
+         <%= link_to 'Confirm Arrival', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %>
+        <% end %>
+        </td>
+        <td><%= link_to 'Edit', edit_consignment_path(consignment), class: "btn btn-secondary btn-sm"  %></td>
+        <td><%= link_to 'Destroy', consignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
