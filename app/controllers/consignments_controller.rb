@@ -18,6 +18,8 @@ class ConsignmentsController < ApplicationController
   def new
     @servicelocations = Route.all.map { |p| p.s_pin }
     @consignment = Consignment.new
+
+    #TwilioClient.new.send_text("+917200668804","Hello")
   end
 
   # GET /consignments/1/edit
@@ -26,9 +28,9 @@ class ConsignmentsController < ApplicationController
 
   # POST /consignments
   # POST /consignments.json
-  def create
+  def create    
     @consignment = Consignment.new(consignment_params)
-    
+
     @consignment.status = 1
     respond_to do |format|
       if @consignment.save
