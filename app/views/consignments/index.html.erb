@@ -30,9 +30,32 @@
          when  1 %>   
         <td>Schedule Pending </td>
          <td><%= link_to 'Schedule Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+         
          <% when 2%>
           <td>Waiting for pickup </td>
-         <td><%= link_to 'Confirm Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Confirm Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          
+          <% when  3 %>
+          <td>Received the Consignment</td>
+          <td><%= link_to 'Confirm Receipt', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          
+          <% when 4 %>
+          <% status= "Received the consignment #{consignment.current_location} " %>
+          <td> <%= status %> </td>
+          <td><%= link_to 'Confirm Movement', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          
+          <% when 5 %>
+          <% status= "consignement Left from #{consignment.current_location} " %>
+          <td> <%= status %> </td>
+          <td><%= link_to 'Confirm Receipt ', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          <% when 6%>
+           <% status= "Consignment at destination station " %>
+          <td> <%= status %> </td>
+          <td><%= link_to 'Schedule Delivery ', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          <% when 7%>
+           <% status= "Delivered" %>
+          <td> <%= status %> </td>
+          <td><%= link_to 'Show History ', consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
         <% end %>
         <td><%= link_to 'Edit', edit_consignment_path(consignment), class: "btn btn-secondary btn-sm"  %></td>
         <td><%= link_to 'Destroy', consignment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>

@@ -83,12 +83,14 @@ GEM
       warden (~> 1.2.3)
     erubi (1.10.0)
     ffi (1.14.2)
+    generator (0.0.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    lazy_priority_queue (0.1.1)
     listen (3.4.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -151,6 +153,9 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rgl (0.5.7)
+      lazy_priority_queue (~> 0.1.0)
+      stream (~> 0.5.3)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -177,6 +182,8 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
+    stream (0.5.3)
+      generator
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -219,6 +226,7 @@ DEPENDENCIES
   listen (~> 3.2)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
+  rgl
   sass-rails (>= 6)
   selenium-webdriver
   spring

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_105536) do
+ActiveRecord::Schema.define(version: 2021_01_02_184031) do
 
   create_table "consignments", force: :cascade do |t|
     t.integer "destination_pin"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2021_01_01_105536) do
     t.string "tracking_id"
     t.string "source_contact"
     t.string "destination_contact"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "current_location"
+    t.integer "next_location"
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.integer "s_pin"
+    t.integer "d_pin"
+    t.integer "travel_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
