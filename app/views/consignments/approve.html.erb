@@ -13,10 +13,18 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status, :value => 2%>
+    <%= form.number_field :status, :value => @consignment.status%>
+  </div>
+  <div class="field">
+    <%= form.label :current_location %>
+    <%= form.number_field :current_location, :value => @consignment.current_location%>
+  </div>
+  <div class="field">
+    <%= form.label :next_location %>
+    <%= form.number_field :next_location, :value => @consignment.next_location%>
   </div>
 
   <div class="actions">
-    <%= form.submit "Schedule" %>
+    <%= form.submit @buttontext %>
   </div>
 <% end %>
