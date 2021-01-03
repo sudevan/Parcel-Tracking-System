@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :source_pin %>
-    <%= form.select(:destination_pin, options_for_select(@servicelocations  ), prompt: "Please Select") %>
+    <%= form.select(:source_pin, options_for_select(@servicelocations  ), prompt: "Please Select") %>
   </div>
   <div class="field">
   <%= form.datetime_select(:schedule_pickup) %>
