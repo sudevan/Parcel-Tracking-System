@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
-  def index
+  def index  
+    @consignments = Consignment.all
   end
 end
