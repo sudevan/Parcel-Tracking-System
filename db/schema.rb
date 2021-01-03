@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_02_184031) do
+ActiveRecord::Schema.define(version: 2021_01_03_112439) do
 
   create_table "consignments", force: :cascade do |t|
     t.integer "destination_pin"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2021_01_02_184031) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "current_location"
     t.integer "next_location"
+    t.datetime "pickup_schedulle"
+    t.datetime "delivery_schedulle"
   end
 
   create_table "routes", force: :cascade do |t|
