@@ -36,6 +36,24 @@
   <%= @consignment.destination_contact %>
 </p>
 
+<strong> Tracking Status </strong>
+<table border=1px>
+<tbody>
+<th > Sl</th>
+  <th align="center"> Event Time</th>
+  <th > Description</th>
+<% i=0 %>
+<% @History.each do |history| %>
+  <% i= i+1 %>
+  <tr>
+    <td align="center"><%= i %></td>
+    <td><%= history.created_at %></td>
+    <td><%= history.event %></td>
+   </tr>
+<% end %>   
+<% puts @History1 %>
+</tbody>
+</table>
 <% if user_signed_in? %>
 <%= link_to 'Edit', edit_consignment_path(@consignment) %> |
 <%= link_to 'Back', consignments_path %>

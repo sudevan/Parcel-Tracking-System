@@ -11,6 +11,14 @@ class ConsignmentsController < ApplicationController
   # GET /consignments/1.json
   def show
     
+    #@History = History.all(:conditions => ["trackid = ?", @tid])
+    #@History1 = History.where(trackid: params[:trackid] )
+    @Cons=Consignment.find(params[:id])
+    @tid=@Cons.tracking_id
+    @History = History.where(trackid: @tid )
+    puts "tid is :"
+    puts @tid
+    puts @History
   end
 
   # GET /consignments/new
