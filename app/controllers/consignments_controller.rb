@@ -41,9 +41,13 @@ class ConsignmentsController < ApplicationController
       if @consignment.save
         #puts "Consignment Paramets"
         #puts @consignment.id
+        cid= @consignment.id.to_s
+        #puts cid
+        @consignment.tracking_id="IN-"+generate_code(5)+"-"+cid
+        @consignment.save
         @History = History.new(:trackid =>@consignment.tracking_id,:event=>"Consignment Registered" )
         if @History.save
-          
+          #@client.send_text(@consignment.source_contact,"Consignment Registered.")
         else
           format.html { render :new }
           format.json { render json: @History.errors, status: :unprocessable_entity }
