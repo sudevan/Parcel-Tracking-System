@@ -37,7 +37,11 @@ class ConsignmentsController < ApplicationController
       if @consignment.save
         #puts "Consignment Paramets"
         #puts @consignment.id
-        @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Consignment Registered" )
+        cid= @consignment.id.to_s
+        #puts cid
+        @consignment.tracking_id="IN-"+generate_code(5)+"-"+cid
+        @consignment.save
+        @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Consignment Registered" )
         if @History.save
           
         else
@@ -60,7 +64,7 @@ class ConsignmentsController < ApplicationController
     when 1
       @consignment.status=2
       @buttontext="Schedule"
-      @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Scheduled Pickup from Customer" )
+      @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Scheduled Pickup from Customer" )
         if @History.save
           
         else
@@ -71,7 +75,7 @@ class ConsignmentsController < ApplicationController
     when 2
       @consignment.status=3
       @buttontext="Pickup"
-      @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received from Customer" )
+      @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Received from Customer" )
         if @History.save
           
         else
@@ -83,7 +87,7 @@ class ConsignmentsController < ApplicationController
       @consignment.current_location = @consignment.source_pin
       @consignment.status=4
       @buttontext="Received"
-      @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received at Base Node at "+@consignment.current_location.to_s )
+      @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Received at Base Node at "+@consignment.current_location.to_s )
         if @History.save
           
         else
@@ -95,7 +99,7 @@ class ConsignmentsController < ApplicationController
       @consignment.next_location = next_location
       @consignment.status = 5
       @buttontext="Left"
-      @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Left from Base Node at "+@consignment.current_location.to_s )
+      @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Left from Base Node at "+@consignment.current_location.to_s )
         if @History.save
           
         else
@@ -107,7 +111,7 @@ class ConsignmentsController < ApplicationController
         @consignment.current_location = @consignment.next_location
         @consignment.status=6
         @buttontext="Received"
-        @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received at Destination Node at "+@consignment.current_location.to_s )
+        @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Received at Destination Node at "+@consignment.current_location.to_s )
         if @History.save
           
         else
@@ -118,7 +122,7 @@ class ConsignmentsController < ApplicationController
         @consignment.current_location = @consignment.next_location
         @consignment.status=4
         @buttontext="Received"
-        @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received at Intermediate Node at "+@consignment.current_location.to_s )
+        @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Received at Intermediate Node at "+@consignment.current_location.to_s )
         if @History.save
           
         else
@@ -129,7 +133,7 @@ class ConsignmentsController < ApplicationController
     when 6
       @consignment.status=7
       @buttontext="Deliver"
-      @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Out for Delivery")
+      @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Out for Delivery")
         if @History.save
           
         else
@@ -176,5 +180,9 @@ class ConsignmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def consignment_params
       params.require(:consignment).permit(:user_id, :destination_pin, :source_pin, :status, :weight, :tracking_id, :source_contact, :destination_contact, :current_location, :next_location)
+    end
+    def generate_code(number)
+      charset = Array('A'..'Z') + Array('1'..'9')
+      Array.new(number) { charset.sample }.join
     end
 end
