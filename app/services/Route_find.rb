@@ -41,6 +41,7 @@ class RouteFind
     end
     def findpath(source_orig,destination)
         puts "Route find started"
+        puts source_orig , destination
         route =[]
         state = 0
         source = source_orig
@@ -65,9 +66,14 @@ class RouteFind
                     end
                     if source == destination
                         state = 3
+                        puts " break  "
+                        puts source , destination   
                         break
                     end
                 end
+            end
+            if state == 3
+                break
             end
         end
             if state == 3

@@ -18,7 +18,7 @@ class ConsignmentsController < ApplicationController
     @servicelocations = ParcelRoute.all.map { |p| p.city_1 }
     @servicelocations = @servicelocations.uniq
     @consignment = Consignment.new
-  
+
     #TwilioClient.new.send_text("+917200668804","Hello")
   end
 
@@ -34,8 +34,8 @@ class ConsignmentsController < ApplicationController
         
     @consignment = Consignment.new(consignment_params)
     @consignment.status = 1
-    @paths = RouteFind.new.findpath(@consignment.source_pin, @consignment.destination_pin )
-    puts "......."  
+    @paths = RouteFind.new.findpath(@consignment.source_city, @consignment.destination_city )
+    puts ".......Controller "  
     puts @paths
     respond_to do |format|
       if @consignment.save
@@ -87,9 +87,13 @@ class ConsignmentsController < ApplicationController
       @consignment.current_city = @consignment.source_city
       @consignment.status=4
       @buttontext="Received"
+      
     when 4
-      next_location = RouteFind.new.findpath( @consignment.current_location,@consignment.destination_city)
+      next_location = RouteFind.new.findpath( @consignment.current_city,@consignment.destination_city)
       @consignment.next_city = next_location[1]
+      puts next_location
+      puts ".......Status 4 ............."
+      puts next_location[1]
       @consignment.status = 5
       @buttontext="Left"
       @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Left from Base Node at "+@consignment.current_location.to_s )
@@ -172,7 +176,7 @@ class ConsignmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def consignment_params
-      params.require(:consignment).permit(:user_id, :destination_pin, :source_pin, :status, :weight, :tracking_id, :source_contact, :destination_contact, :current_location, :next_location)
+      params.require(:consignment).permit(:user_id, :destination_pin, :source_pin, :status, :weight, :tracking_id, :source_contact, :destination_contact, :current_location, :next_location, :source_city, :destination_city, :current_city, :next_city)
     end
     def generate_code(number)
       charset = Array('A'..'Z') + Array('1'..'9')

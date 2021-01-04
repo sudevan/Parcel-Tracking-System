@@ -10,11 +10,9 @@
       </ul>
     </div>
   <% end %>
-
-
-    <%= form.select(:destination_pin, options_for_select(@servicelocations  ), prompt: "Please Select") %>
-
-    <%= form.select(:source_pin, options_for_select(@servicelocations  ) ) %>
+  
+    <%= form.select(:source_city, options_for_select(@servicelocations  ), prompt: "Please Select" ) %>
+      <%= form.select(:destination_city, options_for_select(@servicelocations  ), prompt: "Please Select") %>
     <%= form.text_field :weight, class: "form-control" %>
     <%= form.text_field :source_contact, class: "form-control"  %>
     <%= form.text_field :destination_contact, class: "form-control" %>

@@ -21,14 +21,14 @@
         </div> 
         <% when 4 %>
           <div class="field">
-          <%= form.number_field :current_location, :value => @consignment.current_location%>
+          <%= form.text_field :current_city, :value => @consignment.current_city %>
         </div>
         <% when 5%>
         <div class="field">
-          <%= form.number_field :current_location, :value => @consignment.current_location%>
+          <%= form.text_field :current_city, :value => @consignment.current_city%>
         </div>
         <div class="field"> 
-          <%= form.number_field :next_location, :value => @consignment.next_location %>
+          <%= form.text_field :next_city, :value => @consignment.next_city %>
         </div>
   <% end %>
 

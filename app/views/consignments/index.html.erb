@@ -20,8 +20,8 @@
     <% @consignments.each do |consignment| %>
       <tr>
         <td><%= consignment.id %></td>
-        <td><%= consignment.destination_pin %></td>
-        <td><%= consignment.source_pin %></td>
+        <td><%= consignment.source_city %></td>
+        <td><%= consignment.destination_city %></td>
         <td><%= consignment.weight %></td>
         <td><%= consignment.tracking_id %></td>
         <td><%= consignment.source_contact %></td>
@@ -36,20 +36,20 @@
           <td><%= link_to 'Confirm Pickup', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
           
           <% when  3 %>
-          <td>Received the Consignment</td>
+          <td>Picked up the Consignment</td>
           <td><%= link_to 'Confirm Receipt', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
           
           <% when 4 %>
-          <% status= "Received the consignment #{consignment.current_location} " %>
+          <% status= "Received the consignment #{consignment.current_city} " %>
           <td> <%= status %> </td>
           <td><%= link_to 'Confirm Movement', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
           
           <% when 5 %>
-          <% status= "consignement Left from #{consignment.current_location} " %>
+          <% status= "consignement Left from #{consignment.current_city} " %>
           <td> <%= status %> </td>
           <td><%= link_to 'Confirm Receipt ', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
           <% when 6%>
-           <% status= "Consignment at destination station " %>
+           <% status= "Consignment at destination station #{consignment.destination_city} " %>
           <td> <%= status %> </td>
           <td><%= link_to 'Schedule Delivery ', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
           <% when 7%>
