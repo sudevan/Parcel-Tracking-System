@@ -1,0 +1,12 @@
+<h> <% @tid %> </h>
+<table>
+<tbody>
+<% @History1.each do |history| %>
+  <tr>
+    <td><%= history.event %></td>
+    <td><%= history.created_at %></td>
+   </tr>
+<% end %>   
+<% puts @History1 %>
+</tbody>
+</table>

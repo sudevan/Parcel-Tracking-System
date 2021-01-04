@@ -1,11 +1,12 @@
-class PublicController < ApplicationController
-  def main
-  end
-  def track
-    @History1 = History.all
+class TrackController < ApplicationController
+    def track
+        
+    end
+    def history
+    #@History1 = History.all
     @tid=params[:trackid]
     #@History = History.all(:conditions => ["trackid = ?", tid])
-    #@History1 = History.where(trackid: params[:trackid] )
+    @History1 = History.where(trackid: params[:trackid] )
     @History1.each do |history|
       puts history.event 
         
@@ -18,9 +19,7 @@ class PublicController < ApplicationController
     else
       puts "Non Empty Parameter"
     end 
-  end
-  def trackShow
+    end
     
-  end
-
+    
 end
