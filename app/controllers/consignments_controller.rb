@@ -24,6 +24,7 @@ class ConsignmentsController < ApplicationController
 
   # GET /consignments/1/edit
   def edit
+    @servicelocations = Route.all.map { |p| p.s_pin }
   end
 
   # POST /consignments
@@ -142,6 +143,8 @@ class ConsignmentsController < ApplicationController
   # PATCH/PUT /consignments/1
   # PATCH/PUT /consignments/1.json
   def update 
+    puts "........"
+    puts consignment_params
     respond_to do |format|
       if @consignment.update(consignment_params)
         format.html { redirect_to consignments_url, notice: 'Consignment was successfully updated.' }

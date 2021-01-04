@@ -1,4 +1,4 @@
-<%= form_with(model: @consignment, local: true) do |form| %>
+<%= bootstrap_form_with(model: @consignment, local: true) do |form| %>
   <% if @consignment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@consignment.errors.count, "error") %> prohibited this consignment from being saved:</h2>
@@ -12,17 +12,25 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status, :value => @consignment.status%>
+    <%= form.hidden_field :status, :value => @consignment.status%>
   </div>
-  <div class="field">
-    <%= form.label :current_location %>
-    <%= form.number_field :current_location, :value => @consignment.current_location%>
-  </div>
-  <div class="field">
-    <%= form.label :next_location %>
-    <%= form.number_field :next_location, :value => @consignment.next_location%>
-  </div>
+  <% case @consignment.status 
+         when  2 %>
+        <div class="field">
+        <%= form.datetime_select(:schedule_pickup) %>
+        </div> 
+        <% when 4 %>
+          <div class="field">
+          <%= form.number_field :current_location, :value => @consignment.current_location%>
+        </div>
+        <% when 5%>
+        <div class="field">
+          <%= form.number_field :current_location, :value => @consignment.current_location%>
+        </div>
+        <div class="field"> 
+          <%= form.number_field :next_location, :value => @consignment.next_location %>
+        </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit @buttontext %>
