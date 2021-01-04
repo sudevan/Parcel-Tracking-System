@@ -41,7 +41,7 @@ class ConsignmentsController < ApplicationController
       if @consignment.save
         #puts "Consignment Paramets"
         #puts @consignment.id
-        @History = History.new(:trackid =>@consignment.id,:event=>"Consignment Registered" )
+        @History = History.new(:trackid =>@consignment.tracking_id,:event=>"Consignment Registered" )
         if @History.save
           
         else
