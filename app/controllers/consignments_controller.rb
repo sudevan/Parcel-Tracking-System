@@ -35,6 +35,7 @@ class ConsignmentsController < ApplicationController
     @consignment = Consignment.new(consignment_params)
     @consignment.status = 1
     @paths = RouteFind.new.findpath(@consignment.source_city, @consignment.destination_city )
+    @consignment.estimated_time = @paths.last
     puts ".......Controller "  
     puts @paths
     respond_to do |format|

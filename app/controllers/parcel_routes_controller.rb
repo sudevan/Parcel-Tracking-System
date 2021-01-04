@@ -69,6 +69,6 @@ class ParcelRoutesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def parcel_route_params
-      params.require(:parcel_route).permit(:route_id, :city_1, :city_2)
+      params.require(:parcel_route).permit(:route_id, :city_1, :city_2, :travel_time)
     end
 end
