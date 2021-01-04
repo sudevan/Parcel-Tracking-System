@@ -1,0 +1,8 @@
+<section class="form-auth text-center">
+  <%= form_with url: track_consignment_path, method: :get do |form| %>
+    <h1 class="h3 mb-3 fw-normal">Tracking Id </h1>
+   <%= form.text_field :trackid, autofocus: true, class: "form-control", placeholder: "Tracking ID", autocomplete: "off"  %>
+    <%= form.submit "Search", class: "w-100 btn btn-lg btn-primary" %>
+  <% end %>
+</section>
+
