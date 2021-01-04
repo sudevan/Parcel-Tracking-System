@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :parcel_routes
   get 'dashboard/index'
   resources :consignments
   devise_for :users

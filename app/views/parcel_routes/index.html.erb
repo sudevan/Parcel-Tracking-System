@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Parcel Routes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Route</th>
+      <th>City 1</th>
+      <th>City 2</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parcel_routes.each do |parcel_route| %>
+      <tr>
+        <td><%= parcel_route.route_id %></td>
+        <td><%= parcel_route.city_1 %></td>
+        <td><%= parcel_route.city_2 %></td>
+        <td><%= link_to 'Show', parcel_route %></td>
+        <td><%= link_to 'Edit', edit_parcel_route_path(parcel_route) %></td>
+        <td><%= link_to 'Destroy', parcel_route, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Parcel Route', new_parcel_route_path %>

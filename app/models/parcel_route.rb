@@ -1,0 +1,2 @@
+class ParcelRoute < ApplicationRecord
+end

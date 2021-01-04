@@ -11,34 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
-     <%= form.label :destination_pin %>
+
     <%= form.select(:destination_pin, options_for_select(@servicelocations  ), prompt: "Please Select") %>
-  </div>
 
-  <div class="field">
-    <%= form.label :source_pin %>
     <%= form.select(:source_pin, options_for_select(@servicelocations  ) ) %>
-  </div>
-  <div class="field">
-  <%= form.datetime_field(:schedule_pickup , class: "form-control") %>
-  </div>
-  <div class="field">
-    <%= form.label :weight %>
     <%= form.text_field :weight, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :source_contact %>
     <%= form.text_field :source_contact, class: "form-control"  %>
-  </div>
-
-  <div class="field">
-    <%= form.label :destination_contact %>
     <%= form.text_field :destination_contact, class: "form-control" %>
-  </div>
-
-  <div class="actions">
     <%= form.submit "Submit", class: "btn btn-primary" %>
-  </div>
+
 <% end %>

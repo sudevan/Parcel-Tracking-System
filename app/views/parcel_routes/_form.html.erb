@@ -1,0 +1,32 @@
+<%= form_with(model: parcel_route, local: true) do |form| %>
+  <% if parcel_route.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(parcel_route.errors.count, "error") %> prohibited this parcel_route from being saved:</h2>
+
+      <ul>
+        <% parcel_route.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :route_id %>
+    <%= form.number_field :route_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city_1 %>
+    <%= form.text_field :city_1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city_2 %>
+    <%= form.text_field :city_2 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -17,7 +17,7 @@
   <% case @consignment.status 
          when  2 %>
         <div class="field">
-        <%= form.datetime_select(:schedule_pickup) %>
+        <%= form.datetime_field(:schedule_pickup) %>
         </div> 
         <% when 4 %>
           <div class="field">

@@ -5,7 +5,6 @@ class ConsignmentsController < ApplicationController
   # GET /consignments.json
   def index
     @consignments = Consignment.all
-   
   end
 
   # GET /consignments/1
@@ -16,28 +15,33 @@ class ConsignmentsController < ApplicationController
 
   # GET /consignments/new
   def new
-    @servicelocations = Route.all.map { |p| p.s_pin }
+    @servicelocations = ParcelRoute.all.map { |p| p.city_1 }
+    @servicelocations = @servicelocations.uniq
     @consignment = Consignment.new
-
+  
     #TwilioClient.new.send_text("+917200668804","Hello")
   end
 
   # GET /consignments/1/edit
   def edit
-    @servicelocations = Route.all.map { |p| p.s_pin }
+    @servicelocations = ParcelRoute.all.map { |p| p.city_1 }
+    @servicelocations = @servicelocations.uniq
   end
 
   # POST /consignments
   # POST /consignments.json
-  def create    
+  def create
+        
     @consignment = Consignment.new(consignment_params)
-
     @consignment.status = 1
+    @paths = RouteFind.new.findpath(@consignment.source_pin, @consignment.destination_pin )
+    puts "......."  
+    puts @paths
     respond_to do |format|
       if @consignment.save
         #puts "Consignment Paramets"
         #puts @consignment.id
-        @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Consignment Registered" )
+        @History = History.new(:trackid =>@consignment.id,:event=>"Consignment Registered" )
         if @History.save
           
         else
@@ -80,19 +84,12 @@ class ConsignmentsController < ApplicationController
         end 
 
     when 3
-      @consignment.current_location = @consignment.source_pin
+      @consignment.current_city = @consignment.source_city
       @consignment.status=4
       @buttontext="Received"
-      @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received at Base Node at "+@consignment.current_location.to_s )
-        if @History.save
-          
-        else
-          format.html { render :new }
-          format.json { render json: @History.errors, status: :unprocessable_entity }
-        end 
     when 4
-      next_location = Route.find_by(s_pin: @consignment.current_location).d_pin
-      @consignment.next_location = next_location
+      next_location = RouteFind.new.findpath( @consignment.current_location,@consignment.destination_city)
+      @consignment.next_city = next_location[1]
       @consignment.status = 5
       @buttontext="Left"
       @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Left from Base Node at "+@consignment.current_location.to_s )
@@ -103,8 +100,8 @@ class ConsignmentsController < ApplicationController
           format.json { render json: @History.errors, status: :unprocessable_entity }
         end 
     when 5
-      if @consignment.next_location == @consignment.destination_pin
-        @consignment.current_location = @consignment.next_location
+      if @consignment.next_city == @consignment.destination_city
+        @consignment.current_city = @consignment.next_city
         @consignment.status=6
         @buttontext="Received"
         @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received at Destination Node at "+@consignment.current_location.to_s )
@@ -115,7 +112,7 @@ class ConsignmentsController < ApplicationController
           format.json { render json: @History.errors, status: :unprocessable_entity }
         end 
       else
-        @consignment.current_location = @consignment.next_location
+        @consignment.current_city = @consignment.next_city
         @consignment.status=4
         @buttontext="Received"
         @History = History.new(:trackid =>@consignment.id,:user=> current_user.email ,:event=>"Parcel Received at Intermediate Node at "+@consignment.current_location.to_s )

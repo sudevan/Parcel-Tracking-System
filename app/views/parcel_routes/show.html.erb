@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Route:</strong>
+  <%= @parcel_route.route_id %>
+</p>
+
+<p>
+  <strong>City 1:</strong>
+  <%= @parcel_route.city_1 %>
+</p>
+
+<p>
+  <strong>City 2:</strong>
+  <%= @parcel_route.city_2 %>
+</p>
+
+<%= link_to 'Edit', edit_parcel_route_path(@parcel_route) %> |
+<%= link_to 'Back', parcel_routes_path %>

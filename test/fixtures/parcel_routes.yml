@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  route_id: 1
+  city_1: MyString
+  city_2: MyString
+
+two:
+  route_id: 1
+  city_1: MyString
+  city_2: MyString
