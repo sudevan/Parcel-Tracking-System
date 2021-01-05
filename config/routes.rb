@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_roles
   resources :branch_users
   resources :parcel_routes
   get 'dashboard/index'

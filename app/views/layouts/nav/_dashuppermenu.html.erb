@@ -6,6 +6,7 @@
 <% if current_user.user_roles != "Guest" %>
 <%= link_to 'Dashboard', dashboard_index_path, class: "btn btn-success" %>
 <%= link_to 'Route Management', parcel_routes_path, class: "btn btn-success" %>
+<%= link_to 'User Management', user_roles_path, class: "btn btn-success" %>
 <% end %>
 <%= link_to 'Consignment List', consignments_path, class: "btn btn-success" %>
 <%= link_to 'New Consignment', new_consignment_path, class: "btn btn-success" %>

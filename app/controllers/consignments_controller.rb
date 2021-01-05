@@ -5,11 +5,11 @@ class ConsignmentsController < ApplicationController
   # GET /consignments.json
   def index
     @branchdetails = BranchUser.find_by(email: current_user.email)
+    @userrole = UserRole.find_by(email: current_user.email)
     puts "1"
-   
-      if current_user.user_roles  == "Admin"
+      if @userrole.role  == "Admin"
         @consignments = Consignment.all
-      elsif(current_user.user_roles  == "Employee")
+      elsif(@userrole.role   == "Employee")
         puts "2"
         if @branchdetails != nil 
           query = "(status <= 4 and source_city=?) or ( status = 4 and current_city=?) or (status =5 and next_city=?) or ( status > 5 and destination_city=?)"
@@ -18,7 +18,7 @@ class ConsignmentsController < ApplicationController
         end
       else
         puts "3"
-        puts current_user.email,current_user.user_roles
+        puts current_user.email,@userrole.role 
         query = "(customer_email=?)"
         @consignments = Consignment.where(query, current_user.email )
         puts @consignments
