@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Branch Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>City</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @branch_users.each do |branch_user| %>
+      <tr>
+        <td><%= branch_user.email %></td>
+        <td><%= branch_user.city %></td>
+        <td><%= link_to 'Show', branch_user %></td>
+        <td><%= link_to 'Edit', edit_branch_user_path(branch_user) %></td>
+        <td><%= link_to 'Destroy', branch_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Branch User', new_branch_user_path %>
