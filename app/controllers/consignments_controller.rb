@@ -172,6 +172,8 @@ class ConsignmentsController < ApplicationController
     when 7
       @consignment.status=8
       @buttontext="Deliver"
+      puts "........."
+      puts "@consignment.status "
       @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Delivered")
         if @History.save
           
@@ -180,6 +182,8 @@ class ConsignmentsController < ApplicationController
           format.json { render json: @History.errors, status: :unprocessable_entity }
         end 
     when 8
+      puts "........."
+      puts "@consignment.status "
       @buttontext="Show History"
     end
   end

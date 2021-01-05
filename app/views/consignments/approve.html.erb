@@ -30,6 +30,10 @@
         <div class="field"> 
           <%= form.text_field :next_city, :value => @consignment.next_city %>
         </div>
+        <% when 6 %>
+        <div class="field">
+        <%= form.number_field(:delivery_time) %>
+        </div>
   <% end %>
 
   <div class="actions">

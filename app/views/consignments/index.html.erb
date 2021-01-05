@@ -57,7 +57,7 @@
           <% when 7%>
            <% status= "Out for delivery" %>
           <td> <%= status %> </td>
-          <td><%= link_to 'Confirm Delivery ', consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
+          <td><%= link_to 'Confirm Delivery ', approve_consignment_path(consignment), class: "btn btn-primary btn-sm" %></td>
           <% when 8%>
            <% status= "Delivered" %>
           <td> <%= status %> </td>
