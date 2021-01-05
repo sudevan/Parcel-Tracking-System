@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_091755) do
+ActiveRecord::Schema.define(version: 2021_01_05_100859) do
 
   create_table "branch_users", force: :cascade do |t|
     t.string "email"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_01_05_091755) do
     t.integer "delivery_time"
     t.integer "pickup_time"
     t.integer "estimated_time"
+    t.string "customer_email"
   end
 
   create_table "histories", force: :cascade do |t|

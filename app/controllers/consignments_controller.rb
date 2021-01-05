@@ -5,18 +5,29 @@ class ConsignmentsController < ApplicationController
   # GET /consignments.json
   def index
     @branchdetails = BranchUser.find_by(email: current_user.email)
-    if @branchdetails != nil 
+    puts "1"
+   
       if current_user.user_roles  == "Admin"
         @consignments = Consignment.all
+      elsif(current_user.user_roles  == "Employee")
+        puts "2"
+        if @branchdetails != nil 
+          query = "(status <= 4 and source_city=?) or ( status = 4 and current_city=?) or (status =5 and next_city=?) or ( status > 5 and destination_city=?)"
+          @consignments = Consignment.where(query, @branchdetails.city,@branchdetails.city,@branchdetails.city ,@branchdetails.city )
+          #@consignments = Consignment.where(source_city: @branchdetails.city)
+        end
       else
-        query = "(status <= 4 and source_city=?) or ( status = 4 and current_city=?) or (status =5 and next_city=?) or ( status > 5 and destination_city=?)"
-        @consignments = Consignment.where(query, @branchdetails.city,@branchdetails.city,@branchdetails.city ,@branchdetails.city )
-        #@consignments = Consignment.where(source_city: @branchdetails.city)
+        puts "3"
+        puts current_user.email,current_user.user_roles
+        query = "(customer_email=?)"
+        @consignments = Consignment.where(query, current_user.email )
+        puts @consignments
       end
-    else
-      @consignments =[]
-    end 
-
+      
+      if @consignments == nil 
+        @consignments =[]
+      end
+     
   end
 
   # GET /consignments/1
@@ -39,7 +50,7 @@ class ConsignmentsController < ApplicationController
     @servicelocations = @servicelocations.uniq
     @consignment = Consignment.new
 
-    TwilioClient.new.send_text("+917200668804","Hello")
+    #TwilioClient.new.send_text("+917200668804","Hello")
   end
 
   # GET /consignments/1/edit
@@ -57,6 +68,9 @@ class ConsignmentsController < ApplicationController
     @paths = RouteFind.new.findpath(@consignment.source_city, @consignment.destination_city )
     @consignment.estimated_time = @paths.last
     puts ".......Controller "  
+    if user_signed_in?
+      @consignment.customer_email = current_user.email
+    end
     puts @paths
     respond_to do |format|
       if @consignment.save
