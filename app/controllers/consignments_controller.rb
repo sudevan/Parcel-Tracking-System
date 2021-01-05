@@ -6,7 +6,7 @@ class ConsignmentsController < ApplicationController
   def index
     @branchdetails = BranchUser.find_by(email: current_user.email)
     if @branchdetails != nil 
-      if @branchdetails.city == "*"
+      if current_user.user_roles  == "Admin"
         @consignments = Consignment.all
       else
         query = "(status <= 4 and source_city=?) or ( status = 4 and current_city=?) or (status =5 and next_city=?) or ( status > 5 and destination_city=?)"
