@@ -4,7 +4,19 @@ class ConsignmentsController < ApplicationController
   # GET /consignments
   # GET /consignments.json
   def index
-    @consignments = Consignment.all
+    @branchdetails = BranchUser.find_by(email: current_user.email)
+    if @branchdetails != nil 
+      if @branchdetails.city == "*"
+        @consignments = Consignment.all
+      else
+        query = "(status <= 4 and source_city=?) or ( status = 4 and current_city=?) or (status =5 and next_city=?) or ( status > 5 and destination_city=?)"
+        @consignments = Consignment.where(query, @branchdetails.city,@branchdetails.city,@branchdetails.city ,@branchdetails.city )
+        #@consignments = Consignment.where(source_city: @branchdetails.city)
+      end
+    else
+      @consignments =[]
+    end 
+
   end
 
   # GET /consignments/1
@@ -149,7 +161,7 @@ class ConsignmentsController < ApplicationController
       end
     when 6
       @consignment.status=7
-      @buttontext="Deliver"
+      @buttontext="Schedule Delivery"
       @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Out for Delivery")
         if @History.save
           
@@ -158,6 +170,16 @@ class ConsignmentsController < ApplicationController
           format.json { render json: @History.errors, status: :unprocessable_entity }
         end 
     when 7
+      @consignment.status=8
+      @buttontext="Deliver"
+      @History = History.new(:trackid =>@consignment.tracking_id,:user=> current_user.email ,:event=>"Parcel Delivered")
+        if @History.save
+          
+        else
+          format.html { render :new }
+          format.json { render json: @History.errors, status: :unprocessable_entity }
+        end 
+    when 8
       @buttontext="Show History"
     end
   end

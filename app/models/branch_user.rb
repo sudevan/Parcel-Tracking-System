@@ -1,0 +1,2 @@
+class BranchUser < ApplicationRecord
+end

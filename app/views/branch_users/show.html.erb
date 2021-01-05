@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @branch_user.email %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @branch_user.city %>
+</p>
+
+<%= link_to 'Edit', edit_branch_user_path(@branch_user) %> |
+<%= link_to 'Back', branch_users_path %>
