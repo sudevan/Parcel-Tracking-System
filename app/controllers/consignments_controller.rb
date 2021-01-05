@@ -27,7 +27,7 @@ class ConsignmentsController < ApplicationController
     @servicelocations = @servicelocations.uniq
     @consignment = Consignment.new
 
-    #TwilioClient.new.send_text("+917200668804","Hello")
+    TwilioClient.new.send_text("+917200668804","Hello")
   end
 
   # GET /consignments/1/edit
@@ -54,9 +54,14 @@ class ConsignmentsController < ApplicationController
         #puts cid
         @consignment.tracking_id="IN-"+generate_code(5)+"-"+cid
         @consignment.save
+        smob=@consignment.source_contact
+        dmob=@consignment.destination_contact
         @History = History.new(:trackid =>@consignment.tracking_id,:event=>"Consignment Registered" )
         if @History.save
-          #@client.send_text(@consignment.source_contact,"Consignment Registered.")
+          msgtxt="Your consignment is booked with tracking id:"+@consignment.tracking_id
+          TwilioClient.new.send_text(smob,msgtxt)
+          msgtxt="A consignment is booked for you with tracking id:"+@consignment.tracking_id
+          TwilioClient.new.send_text(dmob,msgtxt)
         else
           format.html { render :new }
           format.json { render json: @History.errors, status: :unprocessable_entity }
@@ -73,6 +78,8 @@ class ConsignmentsController < ApplicationController
   end
   def approve
     @consignment = Consignment.find(params[:id])
+    smob=@consignment.source_contact
+    dmob=@consignment.destination_contact
     case @consignment.status
     when 1
       @consignment.status=2
@@ -161,6 +168,16 @@ class ConsignmentsController < ApplicationController
     puts consignment_params
     respond_to do |format|
       if @consignment.update(consignment_params)
+        #smob=@consignment.source_contact
+        dmob=@consignment.destination_contact
+        case @consignment.status
+        when 2
+          #msgtxt="Your consignment with tracking id:"+@consignment.tracking_id+" is approved for pickup on "+@consignment.pickup_schedulle
+          #puts msgtxt
+          #TwilioClient.new.send_text(smob,msgtxt)
+          #msgtxt="A consignment is booked for you with tracking id:"+@consignment.tracking_id
+          #TwilioClient.new.send_text(dmob,msgtxt)
+        end
         format.html { redirect_to consignments_url, notice: 'Consignment was successfully updated.' }
         format.json { render :show, status: :ok, location: @consignment }
        
